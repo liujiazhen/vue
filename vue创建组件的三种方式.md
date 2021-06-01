@@ -1,7 +1,7 @@
 ## 1、使用 Vue.extend 来创建全局的Vue组件
 
 ```javascript
-<div id="app">
+  <div id="app">
     <!-- 如果要使用组件，直接，把组件的名称，以 HTML 标签的形式，引入到页面中，即可 -->
     <mycom1></mycom1>
   </div>
