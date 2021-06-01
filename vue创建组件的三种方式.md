@@ -32,3 +32,76 @@
     });
   </script>
 ```
+## 2、直接使用 Vue.component 创建
+```javascript
+  <div id="app">
+    <!-- 还是使用 标签形式,引入自己的组件 -->
+    <mycom2></mycom2>
+  </div>
+
+  <script>
+    // 注意:不论是哪种方式创建出来的组件,组件的 template 属性指向的模板内容,必须有且只能有唯一的一个根元素
+    Vue.component('mycom2', {
+      template: '<div><h3>这是直接使用 Vue.component 创建出来的组件</h3><span>123</span></div>'
+    })
+
+    // 创建 Vue 实例，得到 ViewModel
+    var vm = new Vue({
+      el: '#app',
+      data: {},
+      methods: {}
+    });
+  </script>
+```
+## 3、 在被控制的 #app 外面,使用 template 元素,定义组件的HTML模板结构 
+```javascript
+  <div id="app">
+    <mycom3></mycom3>
+    <!-- <login></login> -->
+  </div>
+
+
+  <div id="app2">
+    <mycom3></mycom3>
+    <login></login>
+  </div>
+
+  <!-- 在被控制的 #app 外面,使用 template 元素,定义组件的HTML模板结构  -->
+  <template id="tmpl">
+    <div>
+      <h1>这是通过 template 元素,在外部定义的组件结构,这个方式,有代码的只能提示和高亮</h1>
+      <h4>好用,不错!</h4>
+    </div>
+  </template>
+
+  <template id="tmpl2">
+    <h1>这是私有的 login 组件</h1>
+  </template>
+
+  <script>
+    Vue.component('mycom3', {
+      template: '#tmpl'
+    })
+
+    // 创建 Vue 实例，得到 ViewModel
+    var vm = new Vue({
+      el: '#app',
+      data: {},
+      methods: {}
+    });
+
+
+    var vm2 = new Vue({
+      el: '#app2',
+      data: {},
+      methods: {},
+      filters: {},
+      directives: {},
+      components: { // 定义实例内部私有组件的
+        login: {
+          template: '#tmpl2'
+        }
+      },
+    })
+  </script>
+```
