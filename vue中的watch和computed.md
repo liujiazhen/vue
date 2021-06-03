@@ -74,7 +74,7 @@
 
 ## `computed`计算属性的使用
 1. 默认只有`getter`的计算属性：
-```
+```javascript
 <div id="app">
   <input type="text" v-model="firstName"> +
   <input type="text" v-model="lastName"> =
