@@ -25,7 +25,6 @@
 ## 什么是webpack?
 webpack 是前端的一个项目构建工具，它是基于 Node.js 开发出来的一个前端工具；
 
-
 ## 如何完美实现上述的2种解决方案
 1. 使用Gulp， 是基于 task 任务的；
 2. 使用Webpack， 是基于整个项目进行构建的；
@@ -43,13 +42,13 @@ webpack 是前端的一个项目构建工具，它是基于 Node.js 开发出来
 3. 使用`cnpm i jquery --save`安装jquery类库
 4. 创建`main.js`并书写各行变色的代码逻辑：
 ```javascript
-	// 导入jquery类库
-    import $ from 'jquery'
+// 导入jquery类库
+import $ from 'jquery'
 
-    // 设置偶数行背景色，索引从0开始，0是偶数
-    $('#list li:even').css('backgroundColor','lightblue');
-    // 设置奇数行背景色
-    $('#list li:odd').css('backgroundColor','pink');
+// 设置偶数行背景色，索引从0开始，0是偶数
+$('#list li:even').css('backgroundColor','lightblue');
+// 设置奇数行背景色
+$('#list li:odd').css('backgroundColor','pink');
 ```
 5. 直接在页面上引用`main.js`会报错，因为浏览器不认识`import`这种高级的JS语法，需要使用webpack进行处理，webpack默认会把这种高级的语法转换为低级的浏览器能识别的语法；
 6. 运行`webpack 入口文件路径 输出文件路径`对`main.js`进行处理：
@@ -61,17 +60,17 @@ webpack src/js/main.js dist/bundle.js
 1. 在项目根目录中创建`webpack.config.js`
 2. 由于运行webpack命令的时候，webpack需要指定入口文件和输出文件的路径，所以，我们需要在`webpack.config.js`中配置这两个路径：
 ```javascript
-    // 导入处理路径的模块
-    var path = require('path');
+// 导入处理路径的模块
+var path = require('path');
 
-    // 导出一个配置对象，将来webpack在启动的时候，会默认来查找webpack.config.js，并读取这个文件中导出的配置对象，来进行打包处理
-    module.exports = {
-        entry: path.resolve(__dirname, 'src/js/main.js'), // 项目入口文件
-        output: { // 配置输出选项
-            path: path.resolve(__dirname, 'dist'), // 配置输出的路径
-            filename: 'bundle.js' // 配置输出的文件名
-        }
-    }
+// 导出一个配置对象，将来webpack在启动的时候，会默认来查找webpack.config.js，并读取这个文件中导出的配置对象，来进行打包处理
+module.exports = {
+entry: path.resolve(__dirname, 'src/js/main.js'), // 项目入口文件
+output: { // 配置输出选项
+    path: path.resolve(__dirname, 'dist'), // 配置输出的路径
+    filename: 'bundle.js' // 配置输出的文件名
+}
+}
 ```
 
 ## 实现webpack的实时打包构建
@@ -91,24 +90,24 @@ webpack src/js/main.js dist/bundle.js
 1. 运行`cnpm i html-webpack-plugin --save-dev`安装到开发依赖
 2. 修改`webpack.config.js`配置文件如下：
 ```javascript
-    // 导入处理路径的模块
-    var path = require('path');
-    // 导入自动生成HTMl文件的插件
-    var htmlWebpackPlugin = require('html-webpack-plugin');
+// 导入处理路径的模块
+var path = require('path');
+// 导入自动生成HTMl文件的插件
+var htmlWebpackPlugin = require('html-webpack-plugin');
 
-    module.exports = {
-        entry: path.resolve(__dirname, 'src/js/main.js'), // 项目入口文件
-        output: { // 配置输出选项
-            path: path.resolve(__dirname, 'dist'), // 配置输出的路径
-            filename: 'bundle.js' // 配置输出的文件名
-        },
-        plugins:[ // 添加plugins节点配置插件
-            new htmlWebpackPlugin({
-                template:path.resolve(__dirname, 'src/index.html'),//模板路径
-                filename:'index.html'//自动生成的HTML文件的名称
-            })
-        ]
-    }
+module.exports = {
+    entry: path.resolve(__dirname, 'src/js/main.js'), // 项目入口文件
+    output: { // 配置输出选项
+	path: path.resolve(__dirname, 'dist'), // 配置输出的路径
+	filename: 'bundle.js' // 配置输出的文件名
+    },
+    plugins:[ // 添加plugins节点配置插件
+        new htmlWebpackPlugin({
+	    template:path.resolve(__dirname, 'src/index.html'), // 模板路径
+	    filename:'index.html'//自动生成的HTML文件的名称
+	})
+    ]
+}
 ```
 3. 修改`package.json`中`script`节点中的dev指令如下：
 ```javascript
@@ -128,10 +127,10 @@ webpack src/js/main.js dist/bundle.js
 1. 修改`webpack.config.js`文件，新增`devServer`节点如下：
 ```javascript
 devServer:{
-        hot:true,
-        open:true,
-        port:4321
-    }
+    hot:true,
+    open:true,
+    port:4321
+}
 ```
 2. 在头部引入`webpack`模块：
 ```javascript
@@ -147,10 +146,10 @@ new webpack.HotModuleReplacementPlugin()
 2. 修改`webpack.config.js`这个配置文件：
 ```javascript
 module: { // 用来配置第三方loader模块的
-        rules: [ // 文件的匹配规则
-            { test: /\.css$/, use: ['style-loader', 'css-loader'] }//处理css文件的规则
-        ]
-    }
+    rules: [ // 文件的匹配规则
+        { test: /\.css$/, use: ['style-loader', 'css-loader'] }//处理css文件的规则
+    ]
+}
 ```
 3. 注意：`use`表示使用哪些模块来处理`test`所匹配到的文件；`use`中相关loader模块的调用顺序是从后向前调用的；
 
