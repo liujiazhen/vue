@@ -1,4 +1,4 @@
-# Vue.js - Day5 - Webpack
+# Webpack
 
 ## 在网页中会引用哪些常见的静态资源？
 + JS
