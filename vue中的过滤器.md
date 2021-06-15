@@ -21,7 +21,9 @@ filters: { // 私有局部过滤器，只能在 当前 VM 对象所控制的 Vie
       // 获取年月日
 
       var y = dt.getFullYear();
+      
       var m = (dt.getMonth() + 1).toString().padStart(2, '0');
+      
       var d = dt.getDate().toString().padStart(2, '0');
 
       // 如果 传递进来的字符串类型，转为小写之后，等于 yyyy-mm-dd，那么就返回 年-月-日
@@ -43,6 +45,7 @@ filters: { // 私有局部过滤器，只能在 当前 VM 对象所控制的 Vie
         var ss = dt.getSeconds().toString().padStart(2, '0');
 
         return `${y}-${m}-${d} ${hh}:${mm}:${ss}`;
+        
       }
 
     }
@@ -67,7 +70,6 @@ Vue.filter('dataFormat', function (input, pattern = '') {
   var d = dt.getDate().toString().padStart(2, '0');
 
 
-
   // 如果 传递进来的字符串类型，转为小写之后，等于 yyyy-mm-dd，那么就返回 年-月-日
 
   // 否则，就返回  年-月-日 时：分：秒
@@ -85,7 +87,6 @@ Vue.filter('dataFormat', function (input, pattern = '') {
     var mm = dt.getMinutes().toString().padStart(2, '0');
 
     var ss = dt.getSeconds().toString().padStart(2, '0');
-
 
 
     return `${y}-${m}-${d} ${hh}:${mm}:${ss}`;
