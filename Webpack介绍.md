@@ -65,8 +65,8 @@ var path = require('path');
 module.exports = {
     entry: path.resolve(__dirname, 'src/js/main.js'), // 项目入口文件
     output: { // 配置输出选项
-      path: path.resolve(__dirname, 'dist'), // 配置输出的路径
-      filename: 'bundle.js' // 配置输出的文件名
+        path: path.resolve(__dirname, 'dist'), // 配置输出的路径
+        filename: 'bundle.js' // 配置输出的文件名
     }
 }
 ```
