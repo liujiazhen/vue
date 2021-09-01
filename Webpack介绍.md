@@ -12,11 +12,9 @@
 + 模板文件
  - .ejs   .jade  .vue【这是在webpack中定义组件的方式，推荐这么用】
 
-
 ## 网页中引入的静态资源多了以后有什么问题？？？
 1. 网页加载速度慢， 因为 我们要发起很多的二次请求；
 2. 要处理错综复杂的依赖关系
-
 
 ## 如何解决上述两个问题
 1. 合并、压缩、精灵图、图片的Base64编码
@@ -46,9 +44,9 @@ webpack 是前端的一个项目构建工具，它是基于 Node.js 开发出来
 import $ from 'jquery'
 
 // 设置偶数行背景色，索引从0开始，0是偶数
-$('#list li:even').css('backgroundColor','lightblue');
+$('#list li:even').css('backgroundColor', 'lightblue');
 // 设置奇数行背景色
-$('#list li:odd').css('backgroundColor','pink');
+$('#list li:odd').css('backgroundColor', 'pink');
 ```
 5. 直接在页面上引用`main.js`会报错，因为浏览器不认识`import`这种高级的JS语法，需要使用webpack进行处理，webpack默认会把这种高级的语法转换为低级的浏览器能识别的语法；
 6. 运行`webpack 入口文件路径 输出文件路径`对`main.js`进行处理：
@@ -65,11 +63,11 @@ var path = require('path');
 
 // 导出一个配置对象，将来webpack在启动的时候，会默认来查找webpack.config.js，并读取这个文件中导出的配置对象，来进行打包处理
 module.exports = {
-entry: path.resolve(__dirname, 'src/js/main.js'), // 项目入口文件
-output: { // 配置输出选项
-    path: path.resolve(__dirname, 'dist'), // 配置输出的路径
-    filename: 'bundle.js' // 配置输出的文件名
-}
+    entry: path.resolve(__dirname, 'src/js/main.js'), // 项目入口文件
+    output: { // 配置输出选项
+      path: path.resolve(__dirname, 'dist'), // 配置输出的路径
+      filename: 'bundle.js' // 配置输出的文件名
+    }
 }
 ```
 
@@ -78,7 +76,7 @@ output: { // 配置输出选项
 2. 运行`cnpm i webpack-dev-server --save-dev`安装到开发依赖
 3. 安装完成之后，在命令行直接运行`webpack-dev-server`来进行打包，发现报错，此时需要借助于`package.json`文件中的指令，来进行运行`webpack-dev-server`命令，在`scripts`节点下新增`"dev": "webpack-dev-server"`指令，发现可以进行实时打包，但是dist目录下并没有生成`bundle.js`文件，这是因为`webpack-dev-server`将打包好的文件放在了内存中
  + 把`bundle.js`放在内存中的好处是：由于需要实时打包编译，所以放在内存中速度会非常快
- + 这个时候访问webpack-dev-server启动的`http://localhost:8080/`网站，发现是一个文件夹的面板，需要点击到src目录下，才能打开我们的index首页，此时引用不到bundle.js文件，需要修改index.html中script的src属性为:`<script src="../bundle.js"></script>`
+ + 这个时候访问 webpack-dev-server 启动的`http://localhost:8080/`网站，发现是一个文件夹的面板，需要点击到src目录下，才能打开我们的index首页，此时引用不到bundle.js文件，需要修改index.html中script的src属性为:`<script src="../bundle.js"></script>`
  + 为了能在访问`http://localhost:8080/`的时候直接访问到index首页，可以使用`--contentBase src`指令来修改dev指令，指定启动的根目录：
  ```javascript
  "dev": "webpack-dev-server --contentBase src"
@@ -101,10 +99,10 @@ module.exports = {
 	path: path.resolve(__dirname, 'dist'), // 配置输出的路径
 	filename: 'bundle.js' // 配置输出的文件名
     },
-    plugins:[ // 添加plugins节点配置插件
+    plugins: [ // 添加plugins节点配置插件
         new htmlWebpackPlugin({
-	    template:path.resolve(__dirname, 'src/index.html'), // 模板路径
-	    filename:'index.html'//自动生成的HTML文件的名称
+	    template: path.resolve(__dirname, 'src/index.html'), // 模板路径
+	    filename: 'index.html'//自动生成的HTML文件的名称
 	})
     ]
 }
@@ -126,10 +124,10 @@ module.exports = {
 ### 方式2：
 1. 修改`webpack.config.js`文件，新增`devServer`节点如下：
 ```javascript
-devServer:{
-    hot:true,
-    open:true,
-    port:4321
+devServer: {
+    hot: true,
+    open: true,
+    port: 4321
 }
 ```
 2. 在头部引入`webpack`模块：
@@ -188,8 +186,8 @@ module: { // 用来配置第三方loader模块的
 4. 在项目根目录中添加`.babelrc`文件，并修改这个配置文件如下：
 ```javascript
 {
-    "presets":["es2015", "stage-0"],
-    "plugins":["transform-runtime"]
+    "presets": ["es2015", "stage-0"],
+    "plugins": ["transform-runtime"]
 }
 ```
 5. **注意：语法插件`babel-preset-es2015`可以更新为`babel-preset-env`，它包含了所有的ES相关的语法；**
